@@ -1,0 +1,20 @@
+.game-container {
+  display: flex;
+  justify-content: center;
+}
+
+.block {
+  width: 100px;
+  height: 100px;
+  background-color: aqua;
+  border: 1px solid black;
+  text-align: center;
+  font-size: 75px;
+}
+
+.block-container {
+  margin: auto;
+}
+.flex {
+  display: flex;
+}
