@@ -30,6 +30,7 @@ let visited = [];
 
 //Updates block on click,  keeps track of player's moves, and checks for a winner on each click
 function updateBlock(e) {
+  console.log(gameEnded);
   if (gameEnded) return;
   const target = e.target;
   const cellId = Number(target.id);
@@ -43,44 +44,60 @@ function updateBlock(e) {
     target.innerText = 'o';
   }
   const winner = checkWinner();
-  printGameStatus(winner);
+  // console.log(winner);
   currentPlayer = currentPlayer === 'x' ? 'o' : 'x';
+  gameStatus(currentPlayer, winner);
 }
 
 function checkWinner() {
   const cellsComplete = visited.length === 9;
+  let p1Wins;
+  let p2Wins;
   for (let i = 0; i < winningCombinations.length; i++) {
-    const p1Wins = winningCombinations[i].every((element) =>
+    p1Wins = winningCombinations[i].every((element) =>
       player1_moves.includes(element)
     );
-    const p2Wins = winningCombinations[i].every((element) =>
+    p2Wins = winningCombinations[i].every((element) =>
       player2_moves.includes(element)
     );
-    console.log(p1Wins, p2Wins);
     if (p1Wins) {
       gameEnded = true;
-      console.log('X wins');
-      return 'Player one wins';
+      return 'x';
     } else if (p2Wins) {
       gameEnded = true;
-      console.log('O wins');
-      return 'Player two wins';
+      return 'o';
     } else if (cellsComplete) {
       gameEnded = true;
-      console.log('draw');
-      return 'Draw';
+      return 'draw';
     }
-    return '';
+  }
+
+  return '';
+}
+function gameStatus(currentPlayer, winner) {
+  console.log(winner);
+  switch (winner) {
+    case 'x':
+      gameStatusDiv.innerText = 'Player One wins!';
+      player1_score++;
+      p1ScoreDiv.textContent = player1_score;
+      break;
+    case 'o':
+      gameStatusDiv.innerText = 'Player Two wins!';
+      player2_score++;
+      p2ScoreDiv.innerText = player2_score;
+      break;
+    case 'draw':
+      gameStatusDiv.innerHTML = 'Draw!';
+      break;
+    default:
+      gameStatusDiv.innerText = `${
+        currentPlayer === 'x' ? 'Player one' : 'Player two'
+      }'s turn`;
+      break;
   }
 }
-function printGameStatus(winner) {
-  let status = '';
-  if (!winner) {
-  }
-}
-function updateScore(winner) {
-  if (!winner || winner === 'Draw') return;
-}
+
 function restartGame() {
   arrayOfBoxes.forEach((box, index) => {
     box.id = index;

@@ -1,6 +1,11 @@
+body {
+  font-family: 'Rubik', sans-serif;
+}
+
 .game-container {
   display: flex;
   flex-direction: column;
+  gap: 2rem;
   align-items: center;
 }
 .status {
@@ -18,6 +23,13 @@
 .block-container {
   margin: auto;
 }
+#status {
+  font-size: 2rem;
+}
 .flex {
   display: flex;
+}
+#playerOneScore,
+#playerTwoScore {
+  margin-left: 1rem;
 }
