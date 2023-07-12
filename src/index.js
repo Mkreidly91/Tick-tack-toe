@@ -1,22 +1,7 @@
-let boxes = document.getElementsByClassName('block');
-let arrayOfBoxes = Array.from(boxes);
-console.log(arrayOfBoxes);
+const boxes = document.getElementsByClassName('block');
+const arrayOfBoxes = Array.from(boxes);
 
-function restartgame() {
-  arrayOfBoxes.forEach((box, index) => {
-    box.id = index;
-    box.addEventListener('click', updateBlock);
-  });
-}
 const winningCombinations = [
-  // '012',
-  // '345',
-  // '678',
-  // '036',
-  // '147',
-  // '258',
-  // '048',
-  // '246',
   // Horizontal Rows
   [0, 1, 2],
   [3, 4, 5],
@@ -75,7 +60,18 @@ function checkWinner() {
     }
   }
 }
-
+function restartGame() {
+  arrayOfBoxes.forEach((box, index) => {
+    box.id = index;
+    box.addEventListener('click', updateBlock);
+  });
+  turn = 'x';
+  player1_moves = [];
+  player2_moves = [];
+  gameEnded = false;
+  visited = [];
+}
+restartGame();
 // // vs AI
 // function addTack(id) {
 //   const unvisited = visited.filter((element) => element !== id);
