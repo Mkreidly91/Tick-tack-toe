@@ -17,19 +17,20 @@ const winningCombinations = [
   [2, 4, 6],
 ];
 
-let turn = 'x';
+let currentPlayer = 'x';
 let player1_moves = [];
 let player2_moves = [];
 let gameEnded = false;
 let visited = [];
 
+//Updates block on click,  keeps track of player's moves, and checks for a winner on each click
 function updateBlock(e) {
   if (gameEnded) return;
   const target = e.target;
   const cellId = Number(target.id);
   if (visited.includes(cellId)) return;
   visited.push(cellId);
-  if (turn === 'x') {
+  if (currentPlayer === 'x') {
     player1_moves.push(cellId);
     target.innerText = 'x';
   } else {
@@ -37,11 +38,10 @@ function updateBlock(e) {
     target.innerText = 'o';
   }
   checkWinner();
-  turn = turn === 'x' ? 'o' : 'x';
+  currentPlayer = currentPlayer === 'x' ? 'o' : 'x';
 }
 function checkWinner() {
-  console.log(player1_moves);
-  console.log(player2_moves);
+  const cellsComplete = visited.length === 9;
   for (let i = 0; i < winningCombinations.length; i++) {
     const p1Wins = winningCombinations[i].every((element) =>
       player1_moves.includes(element)
@@ -51,12 +51,14 @@ function checkWinner() {
     );
     console.log(p1Wins, p2Wins);
     if (p1Wins) {
-      console.log('Player 1 wins,game ended');
       gameEnded = true;
-    }
-    if (p2Wins) {
-      console.log('Player 2 wins,game ended');
+      console.log('X wins');
+    } else if (p2Wins) {
       gameEnded = true;
+      console.log('O wins');
+    } else if (cellsComplete) {
+      gameEnded = true;
+      console.log('draw');
     }
   }
 }
@@ -65,7 +67,7 @@ function restartGame() {
     box.id = index;
     box.addEventListener('click', updateBlock);
   });
-  turn = 'x';
+  currentPlayer = 'x';
   player1_moves = [];
   player2_moves = [];
   gameEnded = false;
