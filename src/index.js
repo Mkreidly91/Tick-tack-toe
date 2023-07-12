@@ -1,3 +1,6 @@
+const gameStatusDiv = document.getElementById('status');
+const p1ScoreDiv = document.getElementById('playerOneScore');
+const p2ScoreDiv = document.getElementById('playerTwoScore');
 const boxes = document.getElementsByClassName('block');
 const arrayOfBoxes = Array.from(boxes);
 
@@ -20,6 +23,8 @@ const winningCombinations = [
 let currentPlayer = 'x';
 let player1_moves = [];
 let player2_moves = [];
+let player1_score = 0;
+let player2_score = 0;
 let gameEnded = false;
 let visited = [];
 
@@ -37,7 +42,8 @@ function updateBlock(e) {
     player2_moves.push(cellId);
     target.innerText = 'o';
   }
-  checkWinner();
+  const winner = checkWinner();
+  printGameStatus(winner);
   currentPlayer = currentPlayer === 'x' ? 'o' : 'x';
 }
 
@@ -66,6 +72,14 @@ function checkWinner() {
     }
     return '';
   }
+}
+function printGameStatus(winner) {
+  let status = '';
+  if (!winner) {
+  }
+}
+function updateScore(winner) {
+  if (!winner || winner === 'Draw') return;
 }
 function restartGame() {
   arrayOfBoxes.forEach((box, index) => {
