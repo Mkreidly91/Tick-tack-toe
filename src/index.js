@@ -2,7 +2,8 @@ const gameStatusDiv = document.getElementById('status');
 const p1ScoreDiv = document.getElementById('playerOneScore');
 const p2ScoreDiv = document.getElementById('playerTwoScore');
 const boxes = document.getElementsByClassName('block');
-const arrayOfBoxes = Array.from(boxes);
+const restartButton = document.getElementsByClassName('restart')[0];
+const boxesArray = Array.from(boxes);
 
 const winningCombinations = [
   // Horizontal Rows
@@ -44,7 +45,6 @@ function updateBlock(e) {
     target.innerText = 'o';
   }
   const winner = checkWinner();
-  // console.log(winner);
   currentPlayer = currentPlayer === 'x' ? 'o' : 'x';
   gameStatus(currentPlayer, winner);
 }
@@ -98,15 +98,21 @@ function gameStatus(currentPlayer, winner) {
   }
 }
 
-function restartGame() {
-  arrayOfBoxes.forEach((box, index) => {
-    box.id = index;
-    box.addEventListener('click', updateBlock);
-  });
+function clearGame() {
+  boxesArray.forEach((element) => (element.innerText = ''));
   currentPlayer = 'x';
   player1_moves = [];
   player2_moves = [];
   gameEnded = false;
   visited = [];
 }
+function restartGame() {
+  boxesArray.forEach((box, index) => {
+    box.id = index;
+    box.addEventListener('click', updateBlock);
+  });
+  clearGame();
+}
+
+restartButton.addEventListener('click', restartGame);
 restartGame();
