@@ -40,6 +40,7 @@ function updateBlock(e) {
   checkWinner();
   currentPlayer = currentPlayer === 'x' ? 'o' : 'x';
 }
+
 function checkWinner() {
   const cellsComplete = visited.length === 9;
   for (let i = 0; i < winningCombinations.length; i++) {
@@ -53,13 +54,17 @@ function checkWinner() {
     if (p1Wins) {
       gameEnded = true;
       console.log('X wins');
+      return 'Player one wins';
     } else if (p2Wins) {
       gameEnded = true;
       console.log('O wins');
+      return 'Player two wins';
     } else if (cellsComplete) {
       gameEnded = true;
       console.log('draw');
+      return 'Draw';
     }
+    return '';
   }
 }
 function restartGame() {
@@ -74,11 +79,3 @@ function restartGame() {
   visited = [];
 }
 restartGame();
-// // vs AI
-// function addTack(id) {
-//   const unvisited = visited.filter((element) => element !== id);
-//   //choose a random element in unvisited
-//   const randomIndex = Math.floor(Math.random() * array.length);
-//   visited.push();
-//   boxes[randomIndex].innerHTML = tick;
-// }
