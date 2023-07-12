@@ -1,5 +1,12 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
 body {
   font-family: 'Rubik', sans-serif;
+  font-size: 1.5rem;
 }
 
 .game-container {
@@ -21,7 +28,7 @@ body {
 }
 
 .block-container {
-  margin: auto;
+  border-radius: 20px;
 }
 #status {
   font-size: 2rem;
@@ -29,6 +36,12 @@ body {
 .flex {
   display: flex;
 }
+.score-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
 #playerOneScore,
 #playerTwoScore {
   margin-left: 1rem;
