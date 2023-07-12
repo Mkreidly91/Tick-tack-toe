@@ -1,10 +1,13 @@
 let boxes = document.getElementsByClassName('block');
+let arrayOfBoxes = Array.from(boxes);
+console.log(arrayOfBoxes);
 
-for (let i = 0; i < boxes.length; i++) {
-  boxes[i].id = i;
-  // boxes[i].innerText = i;
+function restartgame() {
+  arrayOfBoxes.forEach((box, index) => {
+    box.id = index;
+    box.addEventListener('click', updateBlock);
+  });
 }
-
 const winningCombinations = [
   // '012',
   // '345',
@@ -32,10 +35,11 @@ const winningCombinations = [
 let turn = 'x';
 let player1_moves = [];
 let player2_moves = [];
-
+let gameEnded = false;
 let visited = [];
 
 function updateBlock(e) {
+  if (gameEnded) return;
   const target = e.target;
   const cellId = Number(target.id);
   if (visited.includes(cellId)) return;
@@ -62,21 +66,16 @@ function checkWinner() {
     );
     console.log(p1Wins, p2Wins);
     if (p1Wins) {
-      console.log('Player 1 wins');
+      console.log('Player 1 wins,game ended');
+      gameEnded = true;
     }
     if (p2Wins) {
-      console.log('Player 2 wins');
+      console.log('Player 2 wins,game ended');
+      gameEnded = true;
     }
   }
-
-  //   if (player1_moves.includes(winningCombinations[i])) {
-  //   } else if (player2_moves.includes(winningCombinations[i])) {
-  //   }
-  // }
 }
-function gameStatus() {}
 
-document.addEventListener('click', updateBlock);
 // // vs AI
 // function addTack(id) {
 //   const unvisited = visited.filter((element) => element !== id);
