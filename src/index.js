@@ -29,9 +29,13 @@ let player2_score = 0;
 let gameEnded = false;
 let visited = [];
 
+boxesArray.forEach((box, index) => {
+  box.id = index;
+  box.addEventListener('click', updateBlock);
+});
+
 //Updates block on click,  keeps track of player's moves, and checks for a winner on each click
 function updateBlock(e) {
-  console.log(gameEnded);
   if (gameEnded) return;
   const target = e.target;
   const cellId = Number(target.id);
@@ -75,7 +79,6 @@ function checkWinner() {
   return '';
 }
 function gameStatus(currentPlayer, winner) {
-  console.log(winner);
   switch (winner) {
     case 'x':
       gameStatusDiv.innerText = 'Player One wins!';
@@ -98,7 +101,7 @@ function gameStatus(currentPlayer, winner) {
   }
 }
 
-function clearGame() {
+function restartGame() {
   boxesArray.forEach((element) => (element.innerText = ''));
   currentPlayer = 'x';
   player1_moves = [];
@@ -106,13 +109,9 @@ function clearGame() {
   gameEnded = false;
   visited = [];
 }
-function restartGame() {
-  boxesArray.forEach((box, index) => {
-    box.id = index;
-    box.addEventListener('click', updateBlock);
-  });
-  clearGame();
-}
+// function restartGame() {
+//   clearGame();
+// }
 
 restartButton.addEventListener('click', restartGame);
 restartGame();
