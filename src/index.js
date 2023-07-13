@@ -70,12 +70,12 @@ function checkWinner() {
     } else if (p2Wins) {
       gameEnded = true;
       return 'o';
-    } else if (cellsComplete) {
-      gameEnded = true;
-      return 'draw';
     }
   }
-
+  if (cellsComplete) {
+    gameEnded = true;
+    return 'draw';
+  }
   return '';
 }
 function gameStatus(currentPlayer, winner) {
