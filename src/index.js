@@ -80,6 +80,7 @@ function checkWinner() {
   }
   return '';
 }
+
 function gameStatus(current_player, winner) {
   switch (winner) {
     case 'x':
@@ -101,8 +102,8 @@ function gameStatus(current_player, winner) {
       }'s turn`;
       break;
   }
+
   if (final_combination) {
-    console.log(final_combination);
     final_combination.forEach((element) =>
       boxes[element].classList.toggle('flash-box')
     );
