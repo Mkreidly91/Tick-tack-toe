@@ -27,6 +27,7 @@ let player1_score = 0;
 let player2_score = 0;
 let game_ended = false;
 let visited = [];
+let final_combination;
 
 boxes.forEach((box, index) => {
   box.id = index;
@@ -64,9 +65,11 @@ function checkWinner() {
       player2_moves.includes(element)
     );
     if (p1Wins) {
+      final_combination = winning_combinations[i];
       game_ended = true;
       return 'x';
     } else if (p2Wins) {
+      final_combination = winning_combinations[i];
       game_ended = true;
       return 'o';
     }
@@ -98,6 +101,12 @@ function gameStatus(current_player, winner) {
       }'s turn`;
       break;
   }
+  if (final_combination) {
+    console.log(final_combination);
+    final_combination.forEach((element) =>
+      boxes[element].classList.toggle('flash-box')
+    );
+  }
 }
 
 function restartGame() {
@@ -107,6 +116,10 @@ function restartGame() {
   player2_moves = [];
   game_ended = false;
   visited = [];
+  final_combination?.forEach((element) =>
+    boxes[element].classList.toggle('flash-box')
+  );
+  final_combination = [];
 }
 
 restart_button.addEventListener('click', restartGame);

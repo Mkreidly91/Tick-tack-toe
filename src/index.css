@@ -62,3 +62,16 @@ h1 {
   padding: 0.5rem 1rem;
   font-size: 1.5rem;
 }
+
+.flash-box {
+  animation: flash 0.4s 2;
+}
+
+@keyframes flash {
+  from {
+    background-color: aqua;
+  }
+  to {
+    background-color: red;
+  }
+}
