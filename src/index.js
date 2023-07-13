@@ -1,9 +1,8 @@
 const game_status_div = document.getElementById('status');
 const p1_score_div = document.getElementById('playerOneScore');
 const p2_score_div = document.getElementById('playerTwoScore');
-const boxes = document.getElementsByClassName('block');
-const restart_button = document.getElementsByClassName('restart')[0];
-const boxes_array = Array.from(boxes);
+const boxes = document.querySelectorAll('.block');
+const restart_button = document.getElementById('restart');
 
 const winning_combinations = [
   // Horizontal Rows
@@ -29,7 +28,7 @@ let player2_score = 0;
 let game_ended = false;
 let visited = [];
 
-boxes_array.forEach((box, index) => {
+boxes.forEach((box, index) => {
   box.id = index;
   box.addEventListener('click', updateBlock);
 });
@@ -102,7 +101,7 @@ function gameStatus(current_player, winner) {
 }
 
 function restartGame() {
-  boxes_array.forEach((element) => (element.innerText = ''));
+  boxes.forEach((element) => (element.innerText = ''));
   current_player = 'x';
   player1_moves = [];
   player2_moves = [];

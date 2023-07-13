@@ -54,7 +54,7 @@ h1 {
   margin-left: 1rem;
 }
 
-.restart {
+#restart {
   font-family: inherit;
   border: none;
   background-color: aqua;
