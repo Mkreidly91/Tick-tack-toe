@@ -109,9 +109,6 @@ function restartGame() {
   gameEnded = false;
   visited = [];
 }
-// function restartGame() {
-//   clearGame();
-// }
 
 restartButton.addEventListener('click', restartGame);
 restartGame();
