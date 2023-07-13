@@ -1,11 +1,11 @@
-const gameStatusDiv = document.getElementById('status');
-const p1ScoreDiv = document.getElementById('playerOneScore');
-const p2ScoreDiv = document.getElementById('playerTwoScore');
+const game_status_div = document.getElementById('status');
+const p1_score_div = document.getElementById('playerOneScore');
+const p2_score_div = document.getElementById('playerTwoScore');
 const boxes = document.getElementsByClassName('block');
-const restartButton = document.getElementsByClassName('restart')[0];
-const boxesArray = Array.from(boxes);
+const restart_button = document.getElementsByClassName('restart')[0];
+const boxes_array = Array.from(boxes);
 
-const winningCombinations = [
+const winning_combinations = [
   // Horizontal Rows
   [0, 1, 2],
   [3, 4, 5],
@@ -21,94 +21,94 @@ const winningCombinations = [
   [2, 4, 6],
 ];
 
-let currentPlayer = 'x';
+let current_player = 'x';
 let player1_moves = [];
 let player2_moves = [];
 let player1_score = 0;
 let player2_score = 0;
-let gameEnded = false;
+let game_ended = false;
 let visited = [];
 
-boxesArray.forEach((box, index) => {
+boxes_array.forEach((box, index) => {
   box.id = index;
   box.addEventListener('click', updateBlock);
 });
 
 //Updates block on click,  keeps track of player's moves, and checks for a winner on each click
 function updateBlock(e) {
-  if (gameEnded) return;
+  if (game_ended) return;
   const target = e.target;
-  const cellId = Number(target.id);
-  if (visited.includes(cellId)) return;
-  visited.push(cellId);
-  if (currentPlayer === 'x') {
-    player1_moves.push(cellId);
+  const cell_id = Number(target.id);
+  if (visited.includes(cell_id)) return;
+  visited.push(cell_id);
+  if (current_player === 'x') {
+    player1_moves.push(cell_id);
     target.innerText = 'x';
   } else {
-    player2_moves.push(cellId);
+    player2_moves.push(cell_id);
     target.innerText = 'o';
   }
   const winner = checkWinner();
-  currentPlayer = currentPlayer === 'x' ? 'o' : 'x';
-  gameStatus(currentPlayer, winner);
+  current_player = current_player === 'x' ? 'o' : 'x';
+  gameStatus(current_player, winner);
 }
 
 function checkWinner() {
-  const cellsComplete = visited.length === 9;
+  const blocks_filled = visited.length === 9;
   let p1Wins;
   let p2Wins;
-  for (let i = 0; i < winningCombinations.length; i++) {
-    p1Wins = winningCombinations[i].every((element) =>
+  for (let i = 0; i < winning_combinations.length; i++) {
+    p1Wins = winning_combinations[i].every((element) =>
       player1_moves.includes(element)
     );
-    p2Wins = winningCombinations[i].every((element) =>
+    p2Wins = winning_combinations[i].every((element) =>
       player2_moves.includes(element)
     );
     if (p1Wins) {
-      gameEnded = true;
+      game_ended = true;
       return 'x';
     } else if (p2Wins) {
-      gameEnded = true;
+      game_ended = true;
       return 'o';
     }
   }
-  if (cellsComplete) {
-    gameEnded = true;
+  if (blocks_filled) {
+    game_ended = true;
     return 'draw';
   }
   return '';
 }
-function gameStatus(currentPlayer, winner) {
+function gameStatus(current_player, winner) {
   switch (winner) {
     case 'x':
-      gameStatusDiv.innerText = 'Player One wins!';
+      game_status_div.innerText = 'Player One wins!';
       player1_score++;
-      p1ScoreDiv.textContent = player1_score;
+      p1_score_div.textContent = player1_score;
       break;
     case 'o':
-      gameStatusDiv.innerText = 'Player Two wins!';
+      game_status_div.innerText = 'Player Two wins!';
       player2_score++;
-      p2ScoreDiv.innerText = player2_score;
+      p2_score_div.innerText = player2_score;
       break;
     case 'draw':
-      gameStatusDiv.innerHTML = 'Draw!';
+      game_status_div.innerHTML = 'Draw!';
       break;
     default:
-      gameStatusDiv.innerText = `${
-        currentPlayer === 'x' ? 'Player one' : 'Player two'
+      game_status_div.innerText = `${
+        current_player === 'x' ? 'Player one' : 'Player two'
       }'s turn`;
       break;
   }
 }
 
 function restartGame() {
-  boxesArray.forEach((element) => (element.innerText = ''));
-  currentPlayer = 'x';
+  boxes_array.forEach((element) => (element.innerText = ''));
+  current_player = 'x';
   player1_moves = [];
   player2_moves = [];
-  gameEnded = false;
+  game_ended = false;
   visited = [];
 }
 
-restartButton.addEventListener('click', restartGame);
+restart_button.addEventListener('click', restartGame);
 restartGame();
